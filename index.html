@@ -1,0 +1,58 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="video-container">
+        <video autoplay muted loop>
+            <source src="lofi-cozy-house-rainy-night-moewalls-com.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <main class="main-content">
+        <img src="2logo_grey-removebg-preview.png" alt="Hand2Smart Logo" class="logo-image">
+        <p class="slogan">Upload your notes and get better AI notes</p>
+        
+        <div class="button-container">
+            <button class="action-button upload-button">Upload</button>
+            <button class="action-button scan-btn">Scan</button>
+        </div>
+
+        <div class="wave-wrapper">
+            <div class="wave"></div>
+        </div>
+    </main>
+
+    <section class="content-section">
+        <div class="content-block">
+            <div class="image-frame">
+                <img src="images/content image.jpg" alt="App Usage">
+            </div>
+            <h2>How to Use the App</h2>
+            <p>Stay in the loop with our company news. Sign up to our newsletter and receive the freshest info.</p>
+        </div>
+        <div class="content-block">
+            <div class="image-frame">
+                <img src="images/content image 2.jpg" alt="Feature Overview">
+            </div>
+            <h2>Features</h2>
+            <p>Discover the features of our app that make your life easier. Stay updated and enjoy our services.</p>
+        </div>
+    </section>
+
+    <div class="camera-interface" id="cameraInterface">
+        <div class="camera-preview">
+            <video id="video" autoplay></video>
+        </div>
+        <button id="captureButton">Capture</button>
+        <button id="doneButton">Done</button>
+        <button id="exitButton" class="exit-button">&times;</button>
+    </div>
+
+    <script src="java/app.js"></script>
+</body>
+</html>

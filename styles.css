@@ -1,0 +1,354 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Fredoka One', cursive;
+    min-height: 100vh;
+    background-color: #1a1a1a;
+}
+
+.video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    color: white;
+    padding: 20px;
+}
+
+.logo-image {
+    width: 300px;
+    height: auto;
+    margin-bottom: 30px;
+    transform: translateY(-50px);
+    animation: floatAnimation 3s ease-in-out infinite;
+}
+
+.slogan {
+    font-size: 28px;
+    margin-bottom: 50px;
+    max-width: 600px;
+    animation: fadeInUp 1s ease-out;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.button-container {
+    display: flex;
+    gap: 20px;
+}
+
+.action-button {
+    padding: 15px 40px;
+    font-size: 18px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    color: white;
+    cursor: pointer;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    animation: pulseAnimation 2s infinite;
+}
+
+.action-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    transform: scale(1.05);
+}
+
+.content-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 50px;
+    gap: 40px;
+    animation: fadeInUp 1s ease-out;
+}
+
+.content-block {
+    width: calc(50% - 20px);
+    max-width: 500px;
+    text-align: left;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    color: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.content-block:hover {
+    transform: translateY(-10px);
+}
+
+.content-block::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    transform: rotate(45deg);
+    animation: shimmerAnimation 3s infinite;
+}
+
+.image-frame {
+    position: relative;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.image-frame::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    animation: framePulse 2s infinite;
+}
+
+.content-block img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+}
+
+.content-block:hover img {
+    transform: scale(1.05);
+}
+
+.content-block h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.content-block h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, white, transparent);
+    animation: lineAnimation 2s infinite;
+}
+
+.wave-wrapper {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    body {
+        background: linear-gradient(45deg, rgb(1, 61, 120), rgb(44, 88, 150));
+        overflow: hidden;
+    }
+
+    .video-container, .content-section {
+        display: none;
+    }
+
+    .main-content {
+        padding-bottom: 100px;
+    }
+
+    .logo-image {
+        width: 150px;
+    }
+
+    .button-container {
+        flex-direction: column;
+        width: 80%;
+        max-width: 250px;
+    }
+
+    .action-button {
+        width: 100%;
+        padding: 15px 0;
+        background: white;
+        color: rgb(1, 61, 120);
+        border: none;
+    }
+
+    .wave-wrapper {
+        display: block;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 150px;
+        overflow: hidden;
+    }
+
+    .wave {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 200%;
+        height: 100%;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.2' d='M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,224C672,213,768,171,864,149.3C960,128,1056,128,1152,149.3C1248,171,1344,213,1392,234.7L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+        background-repeat: repeat-x;
+        animation: waveMove 15s linear infinite;
+    }
+}
+
+@keyframes floatAnimation {
+    0%, 100% { transform: translateY(-50px); }
+    50% { transform: translateY(-60px); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseAnimation {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes shimmerAnimation {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
+}
+
+@keyframes framePulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+@keyframes lineAnimation {
+    0%, 100% { width: 0; left: 50%; }
+    50% { width: 100%; left: 0; }
+}
+
+@keyframes waveMove {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+.camera-interface .camera-preview {
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 20px;
+}
+
+.camera-interface video {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.camera-interface .camera-controls {
+    display: flex;
+    gap: 20px;
+}
+
+.camera-interface .capture-btn,
+.camera-interface .done-btn {
+    padding: 15px 40px;
+    font-size: 18px;
+    font-family: 'Fredoka One', cursive;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    color: white;
+    cursor: pointer;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.camera-interface .capture-btn:hover,
+.camera-interface .done-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    transform: scale(1.05);
+}
+.camera-interface {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 10;
+}
+
+.camera-preview {
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 20px;
+}
+
+.camera-interface video {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.camera-interface button {
+    padding: 10px 20px;
+    font-size: 18px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#captureButton {
+    background-color: #28a745;
+    color: white;
+}
+
+#doneButton {
+    background-color: #007bff;
+    color: white;
+}
+
+.exit-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 30px;
+    background: none;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
