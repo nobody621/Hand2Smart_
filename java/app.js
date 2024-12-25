@@ -144,4 +144,34 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.removeItem('capturedImages');
     });
 });
+// Add this to your app.js file
+function createParticles() {
+    const particlesContainer = document.querySelector('.particles');
+    const particleCount = 50;
 
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // Random size between 2px and 6px
+        const size = Math.random() * 4 + 2;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Random starting position
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        
+        // Random animation duration between 10s and 20s
+        const duration = Math.random() * 10 + 10;
+        particle.style.animation = `float-particle ${duration}s infinite linear`;
+        
+        // Random delay to start animation
+        particle.style.animationDelay = `${Math.random() * 10}s`;
+        
+        particlesContainer.appendChild(particle);
+    }
+}
+
+// Call the function when the page loads
+document.addEventListener('DOMContentLoaded', createParticles);
