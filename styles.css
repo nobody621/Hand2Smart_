@@ -375,55 +375,126 @@ body {
     }
 
     .camera-controls {
-        flex-direction: row;
-        justify-content: space-around;
+        display: flex;
+        justify-content: space-between;
         align-items: center;
-        padding: 1rem;
-        background: rgba(0, 0, 0, 0.5);
-        position: fixed;
-        bottom: 0;
-        left: 0;
+        padding: 2rem;
         width: 100%;
-        height: 180px;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(10px);
     }
-
-    .control-btn {
-        width: auto;
-        margin: 0;
-        background: transparent;
-    }
-
-    .control-btn.capture {
-        width: 70px;
-        height: 70px;
-        border-radius: 50%;
-        background: #fff;
-        border: 3px solid rgba(255, 255, 255, 0.3);
-    }
-
-    .control-btn.capture .btn-content {
-        color: #000;
-    }
-
-    #closeBtn {
+    
+    /* Close button */
+    .exit-btn {
         position: absolute;
         top: 1rem;
         right: 1rem;
-        background: rgba(0, 0, 0, 0.5);
-        padding: 0.5rem;
-        border-radius: 50%;
         width: 40px;
         height: 40px;
+        background: rgba(0, 0, 0, 0.6);
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-
-    #switchCameraBtn {
+    
+    .exit-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: scale(1.1);
+    }
+    
+    /* Main capture button */
+    .capture-btn {
+        width: 80px;
+        height: 80px;
+        border: 3px solid rgba(255, 255, 255, 0.8);
+        border-radius: 50%;
+        background: transparent;
+        position: relative;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .capture-btn::after {
+        content: '';
         position: absolute;
-        top: 1rem;
-        left: 1rem;
-        background: rgba(0, 0, 0, 0.5);
-        padding: 0.5rem;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        height: 90%;
+        background: rgba(255, 255, 255, 0.3);
         border-radius: 50%;
-        width: 40px;
-        height: 40px;
+        transition: all 0.3s ease;
     }
-}
+    
+    .capture-btn:hover::after {
+        width: 70%;
+        height: 70%;
+        background: rgba(255, 255, 255, 0.5);
+    }
+    
+    /* Switch camera button */
+    .switch-camera-btn {
+        width: 50px;
+        height: 50px;
+        background: rgba(0, 0, 0, 0.6);
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .switch-camera-btn img {
+        width: 24px;
+        height: 24px;
+        transition: transform 0.3s ease;
+    }
+    
+    .switch-camera-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .switch-camera-btn:hover img {
+        transform: rotate(180deg);
+    }
+    
+    /* Done button */
+    .done-btn {
+        padding: 0.8rem 2rem;
+        background: rgba(0, 255, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 25px;
+        color: white;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .done-btn:hover {
+        background: rgba(0, 255, 0, 0.5);
+        transform: scale(1.05);
+    }
+    
+    @media (max-width: 768px) {
+        .camera-controls {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            padding: 2rem 1rem;
+        }
+    
+        .capture-btn {
+            width: 70px;
+            height: 70px;
+        }
+    }
