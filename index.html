@@ -69,18 +69,24 @@
     <div class="camera-modal" id="cameraModal">
         <div class="camera-container">
             <video id="cameraFeed" autoplay playsinline></video>
+            
+            <!-- Exit button -->
+            <button class="exit-btn" id="closeBtn">
+                <img src="images/cut_icon.png" alt="Exit" width="20" height="20">
+            </button>
+            
             <div class="camera-controls">
-                <button class="control-btn" id="switchCameraBtn">
-                    <span class="btn-content">Switch Camera</span>
-                    <span class="btn-glow"></span>
+                <!-- Switch camera button -->
+                <button class="switch-camera-btn" id="switchCameraBtn">
+                    <img src="images/switch_icon.png" alt="Switch camera">
                 </button>
-                <button class="control-btn capture" id="takePictureBtn">
-                    <span class="btn-content">Capture</span>
-                    <span class="btn-glow"></span>
-                </button>
-                <button class="control-btn" id="closeBtn">
-                    <span class="btn-content">Close</span>
-                    <span class="btn-glow"></span>
+                
+                <!-- Capture button -->
+                <button class="capture-btn" id="takePictureBtn"></button>
+                
+                <!-- Done button -->
+                <button class="done-btn" id="doneBtn">
+                    <span>Done</span>
                 </button>
             </div>
         </div>
