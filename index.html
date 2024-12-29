@@ -1,59 +1,103 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landing Page</title>
+    <title>CaptureHub</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="aurora-bg"></div>
     <div class="particles"></div>
-    <div class="video-container">
-        <video autoplay muted loop>
-            <source src="lofi-cozy-house-rainy-night-moewalls-com.mp4" type="video/mp4">
-        </video>
-    </div>
-
+    
     <main class="main-content">
-        <img src="2logo_grey-removebg-preview.png" alt="Hand2Smart Logo" class="logo-image">
-        <p class="slogan">Upload your notes and get better AI notes</p>
-        
-        <div class="button-container">
-            <button class="action-button upload-button">Upload</button>
-            <button class="action-button scan-btn">Scan</button>
+        <div class="center-content">
+            <div class="logo-container">
+                <div class="logo">Hand2Note</div>
+                <p class="tagline">Capture moments, create memories</p>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn upload-btn" id="uploadBtn">
+                    <span class="btn-content">Upload Image</span>
+                    <span class="btn-glow"></span>
+                </button>
+                <button class="btn capture-btn" id="captureBtn">
+                    <span class="btn-content">Take Photo</span>
+                    <span class="btn-glow"></span>
+                </button>
+            </div>
         </div>
 
-        <div class="wave-wrapper">
-            <div class="wave"></div>
+        <div class="preview-grid" id="previewGrid">
+            <!-- Preview images will be added here -->
         </div>
+
+        <section class="info-sections">
+            <div class="info-block" data-aos="fade-up">
+                <div class="info-icon">📱</div>
+                <h2>How to Use</h2>
+                <div class="info-content">
+                    <p>Getting started is easy! Simply:</p>
+                    <ol>
+                        <li>Choose to upload an existing image or take a new photo</li>
+                        <li>Preview your image in our enhanced viewer</li>
+                        <li>Edit and adjust as needed</li>
+                        <li>Save or share your creation</li>
+                    </ol>
+                </div>
+                <div class="hover-effect"></div>
+            </div>
+
+            <div class="info-block" data-aos="fade-up" data-aos-delay="200">
+                <div class="info-icon">✨</div>
+                <h2>Features</h2>
+                <div class="info-content">
+                    <p>Discover our amazing features:</p>
+                    <ul>
+                        <li>High-quality image capture</li>
+                        <li>Smart image enhancement</li>
+                        <li>Real-time preview</li>
+                        <li>Quick sharing options</li>
+                    </ul>
+                </div>
+                <div class="hover-effect"></div>
+            </div>
+        </section>
     </main>
 
-    <section class="content-section">
-        <div class="content-block">
-            <div class="image-frame">
-                <img src="images/content image.jpg" alt="App Usage">
+    <div class="camera-modal" id="cameraModal">
+        <div class="camera-container">
+            <video id="cameraFeed" autoplay playsinline></video>
+            <div class="camera-controls">
+                <button class="control-btn" id="switchCameraBtn">
+                    <span class="btn-content">Switch Camera</span>
+                    <span class="btn-glow"></span>
+                </button>
+                <button class="control-btn capture" id="takePictureBtn">
+                    <span class="btn-content">Capture</span>
+                    <span class="btn-glow"></span>
+                </button>
+                <button class="control-btn" id="closeBtn">
+                    <span class="btn-content">Close</span>
+                    <span class="btn-glow"></span>
+                </button>
             </div>
-            <h2>How to Use the App</h2>
-            <p>Stay in the loop with our company news. Sign up to our newsletter and receive the freshest info.</p>
         </div>
-        <div class="content-block">
-            <div class="image-frame">
-                <img src="images/content image 2.jpg" alt="Feature Overview">
-            </div>
-            <h2>Features</h2>
-            <p>Discover the features of our app that make your life easier. Stay updated and enjoy our services.</p>
-        </div>
-    </section>
-
-    <div class="camera-interface" id="cameraInterface">
-        <div class="camera-preview">
-            <video id="video" autoplay></video>
-        </div>
-        <button id="captureButton">Capture</button>
-        <button id="doneButton">Done</button>
-        <button id="exitButton" class="exit-button">&times;</button>
     </div>
 
+    <div class="mobile-buttons">
+        <button class="btn upload-btn" id="mobileUploadBtn">
+            <span class="btn-content">Upload Image</span>
+            <span class="btn-glow"></span>
+        </button>
+        <button class="btn capture-btn" id="mobileCaptureBtn">
+            <span class="btn-content">Take Photo</span>
+            <span class="btn-glow"></span>
+        </button>
+    </div>
+
+    <script src="java/particles.js"></script>
     <script src="java/app.js"></script>
 </body>
 </html>

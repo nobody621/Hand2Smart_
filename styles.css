@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
 * {
     margin: 0;
@@ -7,579 +7,332 @@
 }
 
 body {
-    font-family: 'Fredoka One', cursive;
+    font-family: 'Poppins', sans-serif;
     min-height: 100vh;
-    background-color: #1a1a1a;
-}
-
-.video-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-}
-
-.video-container video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.main-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    text-align: center;
+    background: #0a0a0a;
     color: white;
-    padding: 20px;
-}
-
-.logo-image {
-    width: 300px;
-    height: auto;
-    margin-bottom: 30px;
-    transform: translateY(-50px);
-    animation: floatAnimation 3s ease-in-out infinite;
-}
-
-.slogan {
-    font-size: 28px;
-    margin-bottom: 50px;
-    max-width: 600px;
-    animation: fadeInUp 1s ease-out;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-}
-
-.button-container {
-    display: flex;
-    gap: 20px;
-}
-
-.action-button {
-    padding: 15px 40px;
-    font-size: 18px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    color: white;
-    cursor: pointer;
-    border-radius: 30px;
-    transition: all 0.3s ease;
-    animation: pulseAnimation 2s infinite;
-}
-
-.action-button:hover {
-    background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-    transform: scale(1.05);
-}
-
-.content-section {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 50px;
-    gap: 40px;
-    animation: fadeInUp 1s ease-out;
-}
-
-.content-block {
-    width: calc(50% - 20px);
-    max-width: 500px;
-    text-align: left;
-    padding: 30px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    color: white;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.content-block:hover {
-    transform: translateY(-10px);
-}
-
-.content-block::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(
-        45deg,
-        transparent,
-        rgba(255, 255, 255, 0.1),
-        transparent
-    );
-    transform: rotate(45deg);
-    animation: shimmerAnimation 3s infinite;
-}
-
-.image-frame {
-    position: relative;
-    margin-bottom: 20px;
-    border-radius: 15px;
-    overflow: hidden;
-}
-
-.image-frame::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border: 3px solid rgba(255, 255, 255, 0.3);
-    border-radius: 15px;
-    animation: framePulse 2s infinite;
-}
-
-.content-block img {
-    width: 100%;
-    height: auto;
-    border-radius: 15px;
-    transition: transform 0.3s ease;
-}
-
-.content-block:hover img {
-    transform: scale(1.05);
-}
-
-.content-block h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    position: relative;
-    display: inline-block;
-}
-
-.content-block h2::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -5px;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, white, transparent);
-    animation: lineAnimation 2s infinite;
-}
-
-.wave-wrapper {
-    display: none;
-}
-
-@media (max-width: 768px) {
-    body {
-        background: linear-gradient(45deg, rgb(1, 61, 120), rgb(44, 88, 150));
-        overflow: hidden;
-    }
-
-    .video-container, .content-section {
-        display: none;
-    }
-
-    .main-content {
-        padding-bottom: 100px;
-    }
-
-    .logo-image {
-        width: 150px;
-    }
-
-    .button-container {
-        flex-direction: column;
-        width: 80%;
-        max-width: 250px;
-    }
-
-    .action-button {
-        width: 100%;
-        padding: 15px 0;
-        background: white;
-        color: rgb(1, 61, 120);
-        border: none;
-    }
-
-    .wave-wrapper {
-        display: block;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 150px;
-        overflow: hidden;
-    }
-
-    .wave {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 200%;
-        height: 100%;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.2' d='M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,224C672,213,768,171,864,149.3C960,128,1056,128,1152,149.3C1248,171,1344,213,1392,234.7L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
-        background-repeat: repeat-x;
-        animation: waveMove 15s linear infinite;
-    }
-}
-
-@keyframes floatAnimation {
-    0%, 100% { transform: translateY(-50px); }
-    50% { transform: translateY(-60px); }
-}
-
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes pulseAnimation {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-}
-
-@keyframes shimmerAnimation {
-    0% { transform: translateX(-100%) rotate(45deg); }
-    100% { transform: translateX(100%) rotate(45deg); }
-}
-
-@keyframes framePulse {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 1; }
-}
-
-@keyframes lineAnimation {
-    0%, 100% { width: 0; left: 50%; }
-    50% { width: 100%; left: 0; }
-}
-
-@keyframes waveMove {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
-.camera-interface .camera-preview {
-    width: 100%;
-    max-width: 800px;
-    margin-bottom: 20px;
-}
-
-.camera-interface video {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-}
-
-.camera-interface .camera-controls {
-    display: flex;
-    gap: 20px;
-}
-
-.camera-interface .capture-btn,
-.camera-interface .done-btn {
-    padding: 15px 40px;
-    font-size: 18px;
-    font-family: 'Fredoka One', cursive;
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    color: white;
-    cursor: pointer;
-    border-radius: 30px;
-    transition: all 0.3s ease;
-}
-
-.camera-interface .capture-btn:hover,
-.camera-interface .done-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-    transform: scale(1.05);
-}
-.camera-interface {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
-    z-index: 10;
-}
-
-.camera-preview {
-    width: 100%;
-    max-width: 800px;
-    margin-bottom: 20px;
-}
-
-.camera-interface video {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-}
-
-.camera-interface button {
-    padding: 10px 20px;
-    font-size: 18px;
-    margin: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#captureButton {
-    background-color: #28a745;
-    color: white;
-}
-
-#doneButton {
-    background-color: #007bff;
-    color: white;
-}
-
-.exit-button {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 30px;
-    background: none;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Fredoka One', cursive;
-    min-height: 100vh;
-    background: linear-gradient(45deg, rgb(1, 61, 120), rgb(44, 88, 150));
     overflow-x: hidden;
     position: relative;
 }
 
-/* Animated background particles */
-.particles {
+.aurora-bg {
     position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none;
-    z-index: 0;
+    background: linear-gradient(45deg, #1a0b2e, #000000);
+    z-index: -2;
 }
 
-.particle {
+.aurora-bg::before {
+    content: '';
     position: absolute;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    pointer-events: none;
-    animation: float-particle 15s infinite linear;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle at 50% 50%,
+        rgba(45, 70, 185, 0.3) 0%,
+        rgba(60, 120, 200, 0.2) 25%,
+        rgba(100, 80, 220, 0.1) 50%,
+        transparent 75%
+    );
+    animation: aurora 20s infinite linear;
 }
 
-.video-container {
-    display: none;
+.particles {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
 }
 
 .main-content {
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 100vh;
+    padding: 2rem;
+    padding-bottom: 100px; /* Space for mobile buttons */
+}
+
+.center-content {
     text-align: center;
-    color: white;
-    padding: 20px;
+    margin-top: 4rem;
+}
+
+.logo-container {
+    margin-bottom: 3rem;
     position: relative;
-    z-index: 1;
 }
 
-.logo-image {
-    width: 300px;
-    height: auto;
-    margin-bottom: 30px;
-    animation: logoAnimation 4s ease-in-out infinite;
-    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
+.logo {
+    font-size: 3.5rem;
+    font-weight: 600;
+    background: linear-gradient(45deg, #fff, #7aa2f7);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 1rem;
+    animation: logoGlow 3s ease-in-out infinite;
 }
 
-.slogan {
-    font-size: 28px;
-    margin-bottom: 50px;
-    max-width: 600px;
-    animation: glowText 2s ease-in-out infinite;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+.tagline {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.7);
+    animation: fadeInUp 1s ease-out;
 }
 
-.button-container {
+.action-buttons {
     display: flex;
-    gap: 20px;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
 }
 
-.action-button {
-    padding: 15px 40px;
-    font-size: 18px;
-    background: rgba(255, 255, 255, 0.15);
-    border: 2px solid rgba(255, 255, 255, 0.5);
+.btn {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
     color: white;
     cursor: pointer;
-    border-radius: 30px;
-    transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    transition: all 0.3s ease;
 }
 
-.action-button::before {
-    content: '';
+.btn-glow {
     position: absolute;
     top: -50%;
     left: -50%;
     width: 200%;
     height: 200%;
-    background: linear-gradient(
-        45deg,
-        transparent,
-        rgba(255, 255, 255, 0.2),
-        transparent
-    );
-    transform: rotate(45deg);
-    animation: buttonShine 3s infinite;
+    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+    animation: btnGlow 3s infinite;
 }
 
-.action-button:hover {
-    background: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
-    transform: scale(1.05) translateY(-3px);
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-.content-section {
+.btn:hover .btn-glow {
+    animation: btnGlowHover 1.5s infinite;
+}
+
+.info-sections {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 50px;
-    gap: 40px;
-    position: relative;
-    z-index: 1;
+    gap: 2rem;
+    margin-top: 3rem;
+    width: 100%;
+    max-width: 1200px;
 }
 
-.content-block {
-    width: calc(50% - 20px);
+.info-block {
+    flex: 1;
+    min-width: 300px;
     max-width: 500px;
-    text-align: left;
-    padding: 30px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    color: white;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    transition: all 0.4s ease;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
     position: relative;
     overflow: hidden;
-    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
 }
 
-.content-block:hover {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+.info-block:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.1);
 }
 
-.wave-wrapper {
+.info-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    animation: iconFloat 3s ease-in-out infinite;
+}
+
+.hover-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), 
+                rgba(255,255,255,0.1) 0%, 
+                transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.info-block:hover .hover-effect {
+    opacity: 1;
+}
+
+.mobile-buttons {
+    display: none;
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 150px;
-    overflow: hidden;
-    z-index: 0;
+    padding: 1rem;
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 100;
 }
 
-.wave {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 200%;
-    height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.2' d='M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,224C672,213,768,171,864,149.3C960,128,1056,128,1152,149.3C1248,171,1344,213,1392,234.7L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
-    background-repeat: repeat-x;
-    animation: waveMove 15s linear infinite;
-}
-
-/* New Animations */
-@keyframes logoAnimation {
-    0% { transform: translateY(-50px) rotate(0deg); }
-    25% { transform: translateY(-60px) rotate(2deg); }
-    75% { transform: translateY(-40px) rotate(-2deg); }
-    100% { transform: translateY(-50px) rotate(0deg); }
-}
-
-@keyframes glowText {
-    0%, 100% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
-    50% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.8); }
-}
-
-@keyframes buttonShine {
-    0% { transform: translateX(-100%) rotate(45deg); }
-    100% { transform: translateX(100%) rotate(45deg); }
-}
-
-@keyframes float-particle {
+@keyframes aurora {
     0% {
-        transform: translateY(0) translateX(0);
-        opacity: 0;
-    }
-    50% {
-        opacity: 1;
+        transform: translate(-50%, -50%) rotate(0deg);
     }
     100% {
-        transform: translateY(-100vh) translateX(100px);
-        opacity: 0;
+        transform: translate(-50%, -50%) rotate(360deg);
     }
 }
 
-/* Responsive Design */
+@keyframes logoGlow {
+    0%, 100% {
+        filter: drop-shadow(0 0 5px rgba(122, 162, 247, 0.5));
+    }
+    50% {
+        filter: drop-shadow(0 0 20px rgba(122, 162, 247, 0.8));
+    }
+}
+
+@keyframes btnGlow {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0.8;
+    }
+}
+
+@keyframes btnGlowHover {
+    0% {
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.5) rotate(180deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1) rotate(360deg);
+    }
+}
+
+@keyframes iconFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 @media (max-width: 768px) {
-    .button-container {
-        flex-direction: column;
-        width: 80%;
-        max-width: 250px;
+    .action-buttons {
+        display: none;
     }
-
-    .action-button {
-        width: 100%;
-        padding: 15px 0;
+    
+    .mobile-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
     }
-
-    .logo-image {
-        width: 150px;
+    
+    .logo {
+        font-size: 2.5rem;
     }
-
-    .content-section {
-        padding: 20px;
+    
+    .tagline {
+        font-size: 1rem;
     }
-
-    .content-block {
-        width: 100%;
+    
+    .info-block {
+        min-width: 100%;
+    }
+    
+    .main-content {
+        padding-bottom: 120px;
     }
 }
+.camera-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
 
-/* Add particles with JavaScript */
-@keyframes particleAnimation {
-    0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 0;
-    }
-    50% {
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(-100vh) rotate(360deg);
-        opacity: 0;
-    }
+.camera-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+}
+
+.camera-controls {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.control-btn {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.control-btn .btn-glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+    animation: btnGlow 3s infinite;
+}
+
+.control-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.control-btn:hover .btn-glow {
+    animation: btnGlowHover 1.5s infinite;
 }
