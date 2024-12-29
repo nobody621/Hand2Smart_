@@ -8,21 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const takePictureBtn = document.getElementById('takePictureBtn');
     const closeBtn = document.getElementById('closeBtn');
     const switchCameraBtn = document.getElementById('switchCameraBtn');
-    const previewGrid = document.getElementById('previewGrid');
-    const infoBlocks = document.querySelectorAll('.info-block');
-
+    
     let stream = null;
     let facingMode = 'environment';
 
-    // Load existing images from localStorage
-    function loadSavedImages() {
-        const savedImages = JSON.parse(localStorage.getItem('captureHubImages') || '[]');
-        savedImages.forEach(imageData => {
-            createPreviewElement(imageData);
-        });
-    }
-
-    // Save image to localStorage
+    // Save image to localStorage only
     function saveImageToStorage(imageData) {
         try {
             const savedImages = JSON.parse(localStorage.getItem('captureHubImages') || '[]');
@@ -31,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 url: imageData,
                 timestamp: new Date().toISOString()
             };
-            savedImages.unshift(newImage); // Add new image at the beginning
+            savedImages.unshift(newImage);
             localStorage.setItem('captureHubImages', JSON.stringify(savedImages));
             return newImage;
         } catch (error) {
@@ -42,61 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
             throw error;
         }
     }
-
-    // Create preview element
-    function createPreviewElement(imageData) {
-        const previewItem = document.createElement('div');
-        previewItem.className = 'preview-item';
-        previewItem.style.animation = 'fadeInUp 0.5s ease-out';
-        previewItem.dataset.id = imageData.id;
-        
-        const img = document.createElement('img');
-        img.src = imageData.url;
-        img.alt = 'Captured image';
-        
-        const deleteBtn = document.createElement('button');
-        deleteBtn.className = 'delete-btn';
-        deleteBtn.innerHTML = '❌';
-        deleteBtn.onclick = () => deleteImage(imageData.id);
-        
-        const timestamp = document.createElement('div');
-        timestamp.className = 'timestamp';
-        timestamp.textContent = new Date(imageData.timestamp).toLocaleString();
-        
-        previewItem.appendChild(img);
-        previewItem.appendChild(deleteBtn);
-        previewItem.appendChild(timestamp);
-        previewGrid.insertBefore(previewItem, previewGrid.firstChild);
-    }
-
-    // Delete image from storage and UI
-    function deleteImage(id) {
-        try {
-            const savedImages = JSON.parse(localStorage.getItem('captureHubImages') || '[]');
-            const updatedImages = savedImages.filter(img => img.id !== id);
-            localStorage.setItem('captureHubImages', JSON.stringify(updatedImages));
-            
-            const elementToRemove = document.querySelector(`[data-id="${id}"]`);
-            if (elementToRemove) {
-                elementToRemove.style.animation = 'fadeOut 0.3s ease-out';
-                setTimeout(() => elementToRemove.remove(), 300);
-            }
-        } catch (error) {
-            console.error('Delete error:', error);
-            alert('Failed to delete image. Please try again.');
-        }
-    }
-
-    // Handle hover effect for info blocks
-    infoBlocks.forEach(block => {
-        block.addEventListener('mousemove', (e) => {
-            const rect = block.getBoundingClientRect();
-            const x = ((e.clientX - rect.left) / rect.width) * 100;
-            const y = ((e.clientY - rect.top) / rect.height) * 100;
-            block.querySelector('.hover-effect').style.setProperty('--x', `${x}%`);
-            block.querySelector('.hover-effect').style.setProperty('--y', `${y}%`);
-        });
-    });
 
     // Initialize camera with improved error handling
     async function initCamera() {
@@ -141,9 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const ctx = canvas.getContext('2d');
             ctx.drawImage(cameraFeed, 0, 0);
             
-            const imageUrl = canvas.toDataURL('image/jpeg', 0.8); // Compress to save storage
-            const savedImage = saveImageToStorage(imageUrl);
-            createPreviewElement(savedImage);
+            const imageUrl = canvas.toDataURL('image/jpeg', 0.8);
+            saveImageToStorage(imageUrl);
             closeCamera();
         } catch (error) {
             console.error('Capture error:', error);
@@ -178,8 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const reader = new FileReader();
                 reader.onload = (event) => {
                     try {
-                        const savedImage = saveImageToStorage(event.target.result);
-                        createPreviewElement(savedImage);
+                        saveImageToStorage(event.target.result);
                     } catch (error) {
                         console.error('Upload error:', error);
                     }
@@ -204,9 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
         initCamera();
     });
 
-    // Load saved images when page loads
-    loadSavedImages();
-
     // Initialize particles
-    createParticles(); // Ensure particles.js is properly included and accessible
+    createParticles();
 });

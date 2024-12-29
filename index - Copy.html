@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CaptureHub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="aurora-bg"></div>
+    <div class="particles"></div>
+    
+    <main class="main-content">
+        <div class="center-content">
+            <div class="logo-container">
+                <div class="logo">Hand2Note</div>
+                <p class="tagline">Capture moments, create memories</p>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn upload-btn" id="uploadBtn">
+                    <span class="btn-content">Upload Image</span>
+                    <span class="btn-glow"></span>
+                </button>
+                <button class="btn capture-btn" id="captureBtn">
+                    <span class="btn-content">Take Photo</span>
+                    <span class="btn-glow"></span>
+                </button>
+            </div>
+        </div>
+
+        <div class="preview-grid" id="previewGrid">
+            <!-- Preview images will be added here -->
+        </div>
+
+        <section class="info-sections">
+            <div class="info-block" data-aos="fade-up">
+                <div class="info-icon">📱</div>
+                <h2>How to Use</h2>
+                <div class="info-content">
+                    <p>Getting started is easy! Simply:</p>
+                    <ol>
+                        <li>Choose to upload an existing image or take a new photo</li>
+                        <li>Preview your image in our enhanced viewer</li>
+                        <li>Edit and adjust as needed</li>
+                        <li>Save or share your creation</li>
+                    </ol>
+                </div>
+                <div class="hover-effect"></div>
+            </div>
+
+            <div class="info-block" data-aos="fade-up" data-aos-delay="200">
+                <div class="info-icon">✨</div>
+                <h2>Features</h2>
+                <div class="info-content">
+                    <p>Discover our amazing features:</p>
+                    <ul>
+                        <li>High-quality image capture</li>
+                        <li>Smart image enhancement</li>
+                        <li>Real-time preview</li>
+                        <li>Quick sharing options</li>
+                    </ul>
+                </div>
+                <div class="hover-effect"></div>
+            </div>
+        </section>
+    </main>
+
+    <div class="camera-modal" id="cameraModal">
+        <div class="camera-container">
+            <video id="cameraFeed" autoplay playsinline></video>
+            <div class="camera-controls">
+                <button class="control-btn" id="switchCameraBtn">
+                    <span class="btn-content">Switch Camera</span>
+                    <span class="btn-glow"></span>
+                </button>
+                <button class="control-btn capture" id="takePictureBtn">
+                    <span class="btn-content">Capture</span>
+                    <span class="btn-glow"></span>
+                </button>
+                <button class="control-btn" id="closeBtn">
+                    <span class="btn-content">Close</span>
+                    <span class="btn-glow"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="mobile-buttons">
+        <button class="btn upload-btn" id="mobileUploadBtn">
+            <span class="btn-content">Upload Image</span>
+            <span class="btn-glow"></span>
+        </button>
+        <button class="btn capture-btn" id="mobileCaptureBtn">
+            <span class="btn-content">Take Photo</span>
+            <span class="btn-glow"></span>
+        </button>
+    </div>
+
+    <script src="java/particles.js"></script>
+    <script src="java/app.js"></script>
+</body>
+</html>
