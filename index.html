@@ -69,29 +69,54 @@
     <div class="camera-modal" id="cameraModal">
         <div class="camera-container">
             <video id="cameraFeed" autoplay playsinline></video>
+            <div class="camera-overlay">
+                <div class="focus-ring"></div>
+                <div class="grid-lines"></div>
+            </div>
             
-            <!-- Exit button -->
-            <button class="exit-btn" id="closeBtn">
-                <img src="images/cut_icon.png" alt="Exit" width="20" height="20">
-            </button>
-            
-            <div class="camera-controls">
-                <!-- Switch camera button -->
-                <button class="switch-camera-btn" id="switchCameraBtn">
-                    <img src="images/switch_icon.png" alt="Switch camera">
+            <div class="top-controls">
+                <button class="icon-btn exit-btn" id="closeBtn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
                 </button>
                 
-                <!-- Capture button -->
-                <button class="capture-btn" id="takePictureBtn"></button>
-                
-                <!-- Done button -->
-                <button class="done-btn" id="doneBtn">
+                <button class="icon-btn done-btn" id="doneBtn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
                     <span>Done</span>
                 </button>
             </div>
+    
+            <div class="preview-strip" id="previewStrip">
+                <!-- Preview thumbnails will appear here -->
+            </div>
+            
+            <div class="camera-controls">
+                <button class="camera-side-btn" id="flashBtn">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M11 3L9 12h6l-2 9 9-13h-7l2-5z"></path>
+                    </svg>
+                </button>
+                
+                <button class="capture-btn" id="takePictureBtn">
+                    <div class="capture-ring"></div>
+                </button>
+                
+                <button class="camera-side-btn" id="switchCameraBtn">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 9v6h-4"></path>
+                        <path d="M14 15l6-6"></path>
+                        <path d="M4 15v-6h4"></path>
+                        <path d="M10 9l-6 6"></path>
+                    </svg>
+                </button>
+            </div>
         </div>
+        <div class="capture-flash" id="captureFlash"></div>
     </div>
-
     <div class="mobile-buttons">
         <button class="btn upload-btn" id="mobileUploadBtn">
             <span class="btn-content">Upload Image</span>

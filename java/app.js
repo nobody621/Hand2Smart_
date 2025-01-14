@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // DOM Elements
     const cameraModal = document.getElementById('cameraModal');
     const cameraFeed = document.getElementById('cameraFeed');
     const captureBtn = document.getElementById('captureBtn');
@@ -7,33 +8,62 @@ document.addEventListener('DOMContentLoaded', () => {
     const mobileUploadBtn = document.getElementById('mobileUploadBtn');
     const takePictureBtn = document.getElementById('takePictureBtn');
     const closeBtn = document.getElementById('closeBtn');
+    const doneBtn = document.getElementById('doneBtn');
     const switchCameraBtn = document.getElementById('switchCameraBtn');
+    const previewStrip = document.getElementById('previewStrip');
+    const flashBtn = document.getElementById('flashBtn');
     
+    // State variables
     let stream = null;
     let facingMode = 'environment';
+    let currentImages = [];
+    let flashEnabled = false;
 
-    // Save image to localStorage only
+    // Particle system initialization
+    function createParticles() {
+        const particlesContainer = document.querySelector('.particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.setProperty('--x', `${Math.random() * 100}%`);
+            particle.style.setProperty('--y', `${Math.random() * 100}%`);
+            particle.style.setProperty('--duration', `${10 + Math.random() * 20}s`);
+            particle.style.setProperty('--delay', `${-Math.random() * 20}s`);
+            particlesContainer.appendChild(particle);
+        }
+    }
+
+    // Image storage functions
     function saveImageToStorage(imageData) {
         try {
-            const savedImages = JSON.parse(localStorage.getItem('captureHubImages') || '[]');
             const newImage = {
                 id: Date.now(),
                 url: imageData,
                 timestamp: new Date().toISOString()
             };
-            savedImages.unshift(newImage);
-            localStorage.setItem('captureHubImages', JSON.stringify(savedImages));
+            currentImages.push(newImage);
+            
+            // Add thumbnail to preview strip
+            const thumb = document.createElement('img');
+            thumb.src = imageData;
+            thumb.className = 'preview-thumb';
+            thumb.setAttribute('data-id', newImage.id);
+            previewStrip.insertBefore(thumb, previewStrip.firstChild);
+            
+            // Scroll to show the new thumbnail
+            previewStrip.scrollLeft = 0;
+            
             return newImage;
         } catch (error) {
             console.error('Storage error:', error);
             if (error.name === 'QuotaExceededError') {
-                alert('Storage is full. Please delete some images.');
+                alert('Storage is full. Please save your current images and clear some space.');
             }
             throw error;
         }
     }
 
-    // Initialize camera with improved error handling
+    // Camera initialization
     async function initCamera() {
         try {
             if (stream) {
@@ -52,72 +82,151 @@ document.addEventListener('DOMContentLoaded', () => {
             cameraFeed.srcObject = stream;
             cameraModal.style.display = 'flex';
             
-            cameraModal.style.opacity = 0;
+            // Reset flash state
+            flashEnabled = false;
+            flashBtn.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+            
             requestAnimationFrame(() => {
-                cameraModal.style.transition = 'opacity 0.3s ease';
-                cameraModal.style.opacity = 1;
+                cameraModal.style.opacity = '1';
             });
+
         } catch (error) {
             console.error('Camera error:', error);
-            if (error.name === 'NotAllowedError') {
-                alert('Camera access denied. Please enable camera permissions in your browser settings.');
-            } else {
-                alert('Error accessing camera. Please make sure your device has a working camera.');
-            }
+            handleCameraError(error);
         }
     }
 
-    // Handle image capture
+    // Error handling
+    function handleCameraError(error) {
+        let message = 'An error occurred while accessing the camera.';
+        
+        if (error.name === 'NotAllowedError') {
+            message = 'Camera access denied. Please enable camera permissions in your browser settings.';
+        } else if (error.name === 'NotFoundError') {
+            message = 'No camera found. Please make sure your device has a working camera.';
+        } else if (error.name === 'NotReadableError') {
+            message = 'Camera is in use by another application. Please close other apps using the camera.';
+        }
+        
+        alert(message);
+    }
+
+    // Image capture
     async function captureImage() {
         try {
+            // Show focus animation
+            const focusRing = document.querySelector('.focus-ring');
+            focusRing.classList.add('active');
+            
+            // Flash effect
+            if (flashEnabled) {
+                const flash = document.getElementById('captureFlash');
+                flash.style.animation = 'none';
+                flash.offsetHeight; // Trigger reflow
+                flash.style.animation = 'captureFlash 0.5s ease-out';
+            }
+            
+            // Capture frame
             const canvas = document.createElement('canvas');
             canvas.width = cameraFeed.videoWidth;
             canvas.height = cameraFeed.videoHeight;
             const ctx = canvas.getContext('2d');
+            
+            // Apply any necessary filters or effects
             ctx.drawImage(cameraFeed, 0, 0);
             
-            const imageUrl = canvas.toDataURL('image/jpeg', 0.8);
+            // Convert to JPEG with good quality
+            const imageUrl = canvas.toDataURL('image/jpeg', 0.9);
             saveImageToStorage(imageUrl);
-            closeCamera();
+            
+            // Haptic feedback if available
+            if (navigator.vibrate) {
+                navigator.vibrate(50);
+            }
+            
+            // Remove focus ring after capture
+            setTimeout(() => {
+                focusRing.classList.remove('active');
+            }, 300);
+            
         } catch (error) {
             console.error('Capture error:', error);
             alert('Failed to capture image. Please try again.');
         }
     }
 
-    // Close camera
-    function closeCamera() {
+    // Camera controls
+    function closeCamera(saveImages = false) {
         if (stream) {
             stream.getTracks().forEach(track => track.stop());
             stream = null;
         }
         
-        cameraModal.style.transition = 'opacity 0.3s ease';
-        cameraModal.style.opacity = 0;
+        if (saveImages && currentImages.length > 0) {
+            // Save to localStorage only when done button is clicked
+            const existingImages = JSON.parse(localStorage.getItem('captureHubImages') || '[]');
+            const updatedImages = [...currentImages, ...existingImages];
+            localStorage.setItem('captureHubImages', JSON.stringify(updatedImages));
+        } else {
+            // Clear current session images
+            currentImages = [];
+        }
         
+        // Animate modal close
+        cameraModal.style.opacity = '0';
         setTimeout(() => {
             cameraModal.style.display = 'none';
+            previewStrip.innerHTML = ''; // Clear preview strip
         }, 300);
     }
 
-    // Handle file upload
+    // Flash toggle
+    function toggleFlash() {
+        flashEnabled = !flashEnabled;
+        flashBtn.style.backgroundColor = flashEnabled ? '#2196f3' : 'rgba(255, 255, 255, 0.2)';
+        
+        // Attempt to toggle device flash if available
+        if (stream) {
+            const track = stream.getVideoTracks()[0];
+            if (track.getCapabilities().torch) {
+                track.applyConstraints({
+                    advanced: [{ torch: flashEnabled }]
+                }).catch(error => {
+                    console.error('Flash error:', error);
+                });
+            }
+        }
+    }
+
+    // File upload handling
     function handleFileUpload() {
         const input = document.createElement('input');
         input.type = 'file';
         input.accept = 'image/*';
+        input.multiple = true;
         
-        input.onchange = (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    try {
-                        saveImageToStorage(event.target.result);
-                    } catch (error) {
-                        console.error('Upload error:', error);
-                    }
-                };
-                reader.readAsDataURL(file);
+        input.onchange = async (e) => {
+            const files = Array.from(e.target.files);
+            
+            for (const file of files) {
+                try {
+                    const reader = new FileReader();
+                    await new Promise((resolve, reject) => {
+                        reader.onload = () => {
+                            try {
+                                saveImageToStorage(reader.result);
+                                resolve();
+                            } catch (error) {
+                                reject(error);
+                            }
+                        };
+                        reader.onerror = reject;
+                        reader.readAsDataURL(file);
+                    });
+                } catch (error) {
+                    console.error('Upload error:', error);
+                    alert(`Failed to upload ${file.name}`);
+                }
             }
         };
         
@@ -130,11 +239,24 @@ document.addEventListener('DOMContentLoaded', () => {
     uploadBtn.addEventListener('click', handleFileUpload);
     mobileUploadBtn.addEventListener('click', handleFileUpload);
     takePictureBtn.addEventListener('click', captureImage);
-    closeBtn.addEventListener('click', closeCamera);
+    closeBtn.addEventListener('click', () => closeCamera(false));
+    doneBtn.addEventListener('click', () => closeCamera(true));
+    flashBtn.addEventListener('click', toggleFlash);
     
     switchCameraBtn.addEventListener('click', () => {
         facingMode = facingMode === 'environment' ? 'user' : 'environment';
         initCamera();
+    });
+
+    // Handle keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+        if (cameraModal.style.display === 'flex') {
+            if (e.key === 'Escape') {
+                closeCamera(false);
+            } else if (e.key === ' ' || e.key === 'Enter') {
+                captureImage();
+            }
+        }
     });
 
     // Initialize particles
