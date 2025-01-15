@@ -76,19 +76,15 @@
             
             <div class="top-controls">
                 <button class="icon-btn exit-btn" id="closeBtn">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
+                    <img src="/icons/close.png" alt="Close">
                 </button>
                 
                 <button class="icon-btn done-btn" id="doneBtn">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="20 6 9 17 4 12"></polyline>
-                    </svg>
+                    <img src="/icons/check.png" alt="Done">
                     <span>Done</span>
                 </button>
             </div>
+                
     
             <div class="preview-strip" id="previewStrip">
                 <!-- Preview thumbnails will appear here -->
@@ -96,14 +92,15 @@
             
             <div class="camera-controls">
                 <button class="camera-side-btn" id="flashBtn">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M11 3L9 12h6l-2 9 9-13h-7l2-5z"></path>
-                    </svg>
+                    <img src="/icons/flash.png" alt="Flash">
                 </button>
                 
-                <button class="capture-btn" id="takePictureBtn">
-                    <div class="capture-ring"></div>
+                <button id="takePictureBtn"></button>
+                
+                <button class="camera-side-btn" id="switchCameraBtn">
+                    <img src="/icons/switch-camera.png" alt="Switch Camera">
                 </button>
+            </div>
                 
                 <button class="camera-side-btn" id="switchCameraBtn">
                     <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
