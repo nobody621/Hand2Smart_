@@ -293,23 +293,18 @@ body {
     gap: 8px;
     border-radius: 24px;
     padding: 0 20px;
-    background: #2196f3;
+    background: rgba(0, 0, 0, 0.5);
     width: auto;
 }
 
-.done-btn:hover {
-    background: #1976d2;
-}
+
 
 .done-btn img {
     width: 20px;
     height: 20px;
 }
 
-.done-btn span {
-    color: white;
-    font-weight: 500;
-}
+
 
 .preview-strip {
     position: absolute;
