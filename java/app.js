@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const switchCameraBtn = document.getElementById('switchCameraBtn');
     const previewStrip = document.getElementById('previewStrip');
     const flashBtn = document.getElementById('flashBtn');
-    
+
     // State variables
     let stream = null;
     let facingMode = 'environment';
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Image storage functions
-    function saveImageToStorage(imageData) {
+     function saveImageToStorage(imageData) {
         try {
             const newImage = {
                 id: Date.now(),
@@ -56,12 +56,26 @@ document.addEventListener('DOMContentLoaded', () => {
             return newImage;
         } catch (error) {
             console.error('Storage error:', error);
-            if (error.name === 'QuotaExceededError') {
-                alert('Storage is full. Please save your current images and clear some space.');
-            }
-            throw error;
+                alert('Failed to save image locally. Please try again.');
+           throw error;
         }
     }
+
+    // Load images from images.json
+    async function loadImages() {
+        try {
+            const response = await fetch('images.json');
+             if(!response.ok){
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+             currentImages = data;
+        } catch (error) {
+           console.error('Failed to load images:', error);
+           alert('Failed to load images.');
+        }
+     }
+    
 
     // Camera initialization
     async function initCamera() {
@@ -112,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Image capture
-    async function captureImage() {
+   async function captureImage() {
         try {
             // Show focus animation
             const focusRing = document.querySelector('.focus-ring');
@@ -137,7 +151,8 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Convert to JPEG with good quality
             const imageUrl = canvas.toDataURL('image/jpeg', 0.9);
-            saveImageToStorage(imageUrl);
+             saveImageToStorage(imageUrl);
+           
             
             // Haptic feedback if available
             if (navigator.vibrate) {
@@ -154,30 +169,43 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Failed to capture image. Please try again.');
         }
     }
+    
 
     // Camera controls
-    function closeCamera(saveImages = false) {
+    async function closeCamera(saveImages = false) {
         if (stream) {
             stream.getTracks().forEach(track => track.stop());
             stream = null;
         }
-        
-        if (saveImages && currentImages.length > 0) {
-            // Save to localStorage only when done button is clicked
-            const existingImages = JSON.parse(localStorage.getItem('captureHubImages') || '[]');
-            const updatedImages = [...currentImages, ...existingImages];
-            localStorage.setItem('captureHubImages', JSON.stringify(updatedImages));
-        } else {
-            // Clear current session images
-            currentImages = [];
-        }
-        
-        // Animate modal close
-        cameraModal.style.opacity = '0';
-        setTimeout(() => {
-            cameraModal.style.display = 'none';
-            previewStrip.innerHTML = ''; // Clear preview strip
-        }, 300);
+       if(saveImages && currentImages.length > 0) {
+           try{
+              const response = await fetch('/save-images',{
+                   method: 'POST',
+                   headers: {
+                       'Content-Type': 'application/json'
+                   },
+                   body: JSON.stringify(currentImages)
+                });
+               if(!response.ok){
+                   throw new Error(`HTTP error! status: ${response.status}`)
+               }
+                console.log('Images saved to server.');
+
+            } catch (error) {
+            console.error('Failed to save images:', error);
+            alert('Failed to save images to the server.');
+           }
+         }
+
+        // Reset currentImages if not saving
+        currentImages = [];
+
+         //Animate modal close
+         cameraModal.style.opacity = '0';
+         setTimeout(() => {
+             cameraModal.style.display = 'none';
+             previewStrip.innerHTML = '';
+         }, 300);
     }
 
     // Flash toggle
@@ -199,39 +227,40 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // File upload handling
-    function handleFileUpload() {
-        const input = document.createElement('input');
-        input.type = 'file';
-        input.accept = 'image/*';
-        input.multiple = true;
-        
-        input.onchange = async (e) => {
-            const files = Array.from(e.target.files);
-            
-            for (const file of files) {
-                try {
-                    const reader = new FileReader();
-                    await new Promise((resolve, reject) => {
-                        reader.onload = () => {
-                            try {
+   function handleFileUpload() {
+       const input = document.createElement('input');
+       input.type = 'file';
+       input.accept = 'image/*';
+       input.multiple = true;
+       
+       input.onchange = async (e) => {
+           const files = Array.from(e.target.files);
+           
+           for (const file of files) {
+               try {
+                   const reader = new FileReader();
+                   await new Promise((resolve, reject) => {
+                       reader.onload = () => {
+                           try {
                                 saveImageToStorage(reader.result);
                                 resolve();
-                            } catch (error) {
-                                reject(error);
-                            }
-                        };
-                        reader.onerror = reject;
-                        reader.readAsDataURL(file);
-                    });
-                } catch (error) {
-                    console.error('Upload error:', error);
-                    alert(`Failed to upload ${file.name}`);
-                }
-            }
-        };
-        
-        input.click();
-    }
+                           } catch (error) {
+                               reject(error);
+                           }
+                       };
+                       reader.onerror = reject;
+                       reader.readAsDataURL(file);
+                   });
+               } catch (error) {
+                   console.error('Upload error:', error);
+                   alert(`Failed to upload ${file.name}`);
+               }
+           }
+       };
+       
+       input.click();
+   }
+
 
     // Event listeners
     captureBtn.addEventListener('click', initCamera);
@@ -261,4 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize particles
     createParticles();
+    
+    // Load initial data
+    loadImages();
 });
